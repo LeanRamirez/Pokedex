@@ -1,35 +1,45 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Pokemon} from '../../../domain/entities/Pokemon';
 import {Card, Text} from 'react-native-paper';
 import {FadeInmage} from '../UI/FadeInImage';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParams} from '../../navigator/StackNavigator';
 
 interface Props {
   pokemon: Pokemon;
 }
 
 export default function PokemonCard({pokemon}: Props) {
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
   return (
-    <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
-      <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
-        {pokemon.name}
-        {'\n#' + pokemon.id}
-      </Text>
-      {/* pokeball background image */}
-      <View style={styles.pokeballContainer}>
-        <Image
-          source={require('../../../assets/pokeball-light.png')}
-          style={styles.pokeball}
-        />
-      </View>
-      {/* pokemon image */}
+    <Pressable
+      style={{flex: 1}}
+      onPress={() =>
+        navigation.navigate('PokemonScreen', {pokemonId: pokemon.id})
+      }>
+      <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
+        <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
+          {pokemon.name}
+          {'\n#' + pokemon.id}
+        </Text>
+        {/* pokeball background image */}
+        <View style={styles.pokeballContainer}>
+          <Image
+            source={require('../../../assets/pokeball-light.png')}
+            style={styles.pokeball}
+          />
+        </View>
+        {/* pokemon image */}
 
-      <FadeInmage uri={pokemon.avatar} style={styles.pokemonImage} />
+        <FadeInmage uri={pokemon.avatar} style={styles.pokemonImage} />
 
-      {/* types */}
+        {/* types */}
 
-      <Text style={[styles.name, {marginTop: 35}]}>{pokemon.types[0]}</Text>
-    </Card>
+        <Text style={[styles.name, {marginTop: 35}]}>{pokemon.types[0]}</Text>
+      </Card>
+    </Pressable>
   );
 }
 
