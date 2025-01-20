@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from '../screens/home/HomeScreen';
-import {PokemonScreen} from '../screens/pokemo/PokemonScreen';
+import {PokemonScreen} from '../screens/pokemon/PokemonScreen';
 import {SearchScreen} from '../screens/search/SearchScreen';
 
 export type RootStackParams = {
